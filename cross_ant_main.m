@@ -44,8 +44,8 @@ cp = t(length(BPU.OFDM_PILOT_T)-BPU.OFDM_CP_LEN+1:length(BPU.OFDM_PILOT_T));
 BPU.OFDM_PREAMBLE = [BPU.ieee11ad_CE; cp; t;];
 BPU.DO_OFDM                = 0;
 % BPU.RUN_USRP_CMD           = "bash /home/chen7323/Downloads/mmw-calibration-sim/uhd/run.sh";
-BPU.TX_DATA_PATH           = "/home/chen7323/Downloads/mmw-calibration-sim/phy_samples/tx_data.dat";
-BPU.RX_DATA_PATH           = "/home/chen7323/Downloads/mmw-calibration-sim/phy_samples/usrp_samples.dat";
+BPU.TX_DATA_PATH           = "/home/chen7323/Downloads/mmw-tutorial/phy_samples/tx_data.dat";
+BPU.RX_DATA_PATH           = "/home/chen7323/Downloads/mmw-tutorial/phy_samples/usrp_samples.dat";
 BPU.USRP_ARGS              = "serial=31245AF"; %"serial=31245B5";
 BPU.USRP_EXECFILE          = "/home/chen7323/Downloads/uhd/host/build/examples/txrx_loopback_to_file";
 % BPU.PA_INITIAL_DELAY       = 0;
@@ -71,8 +71,8 @@ PA.REFANT        = 1;
 PA.PHASE_CAL     = zeros(32,1); % in rad
 PA.MAG_CAL       = ones(4,32);
 PA.CMOD_A7_DEV   = '/dev/ttyUSB1';
-PA.TX_CB_NAME    = "/home/chen7323/Downloads/mmw-calibration-sim/codebooks/test.mat";
-PA.RX_CB_NAME    = "/home/chen7323/Downloads/mmw-calibration-sim/codebooks/test.mat";
+PA.TX_CB_NAME    = "/home/chen7323/Downloads/mmw-tutorial/codebooks/test.mat";
+PA.RX_CB_NAME    = "/home/chen7323/Downloads/mmw-tutorial/codebooks/test.mat";
 PA.N_BEAM_WASTE  = (BPU.RX_POWER_AMP_WAIT_TIME-20.4e-6)/BPU.PN_INTERVAL_TIME; % X310 NI-RIO 200e6 Msps
 % PA.N_BEAM_WASTE  = (BPU.RX_POWER_AMP_WAIT_TIME*BPU.FS-(BPU.RX_POWER_AMP_WAIT_TIME>6e-6)*18360)/(BPU.PN_INTERVAL_TIME*BPU.FS);
 PA.TX_CB_ENTRIES = zeros(1,PA.N_BEAM_WASTE+PA.N_BEAM);%reshape(repmat([0:3],PA.N_BEAM/4,1),1,PA.N_BEAM);%[0:PA.N_BEAM-1]; % repmat([0],1,32);
@@ -91,12 +91,13 @@ run_cmd(sprintf("python ./M-Cube-Hostcmds/load_codebook.py %d 0 %d %s",PA.RX_IP,
 load("cal32_new_taoffice.mat"); PA.PHASE_CAL(PA.ACTIVE_ANT) = calibration_vec;
 load("magcal.mat"); PA.MAG_CAL = mag_cal_vec;
 %%
-idx_offset = 11;
+idx_offset = 0;
 aco_cbsize = [124]; %[8:4:124];
 savedata = 1;
 save_folder = "./exp_data";
-BPU.DO_OFDM = 1;
-az = [-80:1:80];
+BPU.DO_OFDM = 0;
+az = [-60:2:60];
+el = [0];
 PA.TX_IF_GAIN = 1; 
 PA.RX_IF_GAIN = 1;
 BPU.TX_RF_GAIN = 20;
@@ -104,25 +105,18 @@ BPU.RX_RF_GAIN = 5;
 
 tic
 idx = idx_offset + 1;
-create_exhaustive_codebook([-60:2:60],[0],1,PA);
+create_exhaustive_codebook(az,el,1,PA);
 cb = "./codebooks/exhaustive_cal.mat";
 % cb = "./codebooks/test.mat";
 [rx97, H97, r97, SNR97, n97, BPU, PA, maxk_pos97, maxk_pks97] = measure_codebook(cb, BPU, PA);
-data = [];
-data.rx = rx97;
-%     save(sprintf("%s/data%d.mat",save_folder, idx), "data");
+figure; plot(az, SNR97); xlabel("Angle (deg)"); ylabel("SNR (dB)");
+
+
+BPU.DO_OFDM = 1;
+cb = "./codebooks/test.mat";
+[rx97, H97, r97, SNR97, n97, BPU, PA, maxk_pos97, maxk_pks97] = measure_codebook(cb, BPU, PA);
+figure; 
+plot(unwrap(angle(H97))); xlabel("Subcarrier"); ylabel("Phase (rad)");
+
 save(sprintf("%s/data%d.mat",save_folder, idx));
-% 1: single antenna 1-32 (non-OFDM)
-% 2: single antenna 1-32 (OFDM), 3 ft
-% 3: single antenna 1-32 (OFDM), 5 ft
-% 4: ~ 5 ft
-% 5: same as 4
-% 6: turn the left node around a little bit
-% 7: ~ 6 ft
-% 8: ~6 ft, turn the left node around a little bit again
-% 9: ~10 ft
-% 10: ~10 ft, different angle
-figure(1); plot(abs(ifft(H97)));
-figure(2); plot(unwrap(angle(H97)));
-figure(3); plot(db(H97));
 toc

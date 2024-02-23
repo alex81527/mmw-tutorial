@@ -104,16 +104,16 @@ function [rx_segments, H, rss_pwr, SNR, noise_pwr, BPU, PA, maxk_pos, maxk_pks] 
             MinPeakProminence = 0.05;
             MinPeakDistance = 0;
             [~,loc,~,prominence] = findpeaks(abs(hh)./M,"MinPeakProminence", MinPeakProminence, "MinPeakHeight", MinPeakHeight, "MinPeakDistance", MinPeakDistance);
-            if ii<=16
-                figure(4); subplot(4,4,ii);
-                findpeaks(abs(hh),"MinPeakProminence", M*MinPeakProminence, "MinPeakHeight", M*MinPeakHeight, "MinPeakDistance", MinPeakDistance);
-                title(sprintf("%.1f",SNR(ii)));
-            end
+%             if ii<=16
+%                 figure(4); subplot(4,4,ii);
+%                 findpeaks(abs(hh),"MinPeakProminence", M*MinPeakProminence, "MinPeakHeight", M*MinPeakHeight, "MinPeakDistance", MinPeakDistance);
+%                 title(sprintf("%.1f",SNR(ii)));
+%             end
             [M2,I2] = maxk(prominence, 3);
-            if (M<50)
-                fprintf("Beam %d: Max peak less than 50\n", ii);
-%                 continue;
-            end
+%             if (M<50)
+%                 fprintf("Beam %d: Max peak less than 50\n", ii);
+% %                 continue;
+%             end
     %         fprintf("Maxk peak pos: %s\n",int2str(loc(I2).'));
             maxk_pos(1:length(I2),ii) = loc(I2);
             maxk_pks(1:length(I2),ii) = hh(loc(I2));   
