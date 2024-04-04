@@ -1,4 +1,4 @@
-function [rx, H, rss_pwr, SNR, noise_pwr, BPU, PA, maxk_pos, maxk_pks] = measure_cs_multipath_codebook(cb_name, BPU, PA)
+function [rx, H, rss_pwr, SNR, noise_pwr, BPU, PA, maxk_pos, maxk_pks] = measure_codebook(cb_name, BPU, PA)
     PA.TX_CB_NAME = cb_name;
     load(PA.TX_CB_NAME);
     cb_size = length(beam_weight);
