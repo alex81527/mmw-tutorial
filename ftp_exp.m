@@ -136,22 +136,22 @@ function [data] = ftp_exp(idx,az,aco_cbsize,savedata,save_folder,BPU,PA)
     %     figure(102); plot(reshape(db(r7,'power'),repeat,[])); legend(["SWIFT2.0", "SWIFT1.0", "ACO","11ad"]);
     
     
-    % figure; plot(10*log10([r2 r3 r5]));
-    fig = figure('Position', [100 100 200*8 200*4]);
-    subplot(2,2,1); plot(SNR4); title("ACO probe SNR");
-    subplot(2,2,2); plot(SNR1); title("CS probe SNR");
-    subplot(2,2,3); plot(aco_cbsize,[data.snr_cs_multipath ...
-            data.snr_cs_dominantpath data.snr_aco ...
-            data.snr_cs_multipath_v2 data.snr_11ad]); 
-    xlabel("# measurements"); ylabel("SNR (dB)");
-    legend(["SWIFT2.0", "CS", "ACO", "SWIFT2.0 v2", "11ad"]);
-    subplot(2,2,4); 
-    plot(aco_cbsize, [data.tpt_cs_multipath ...
-            data.tpt_cs_dominantpath data.tpt_aco ...
-            data.tpt_cs_multipath_v2 data.tpt_11ad]/1e6);
-    % set(gca,'xticklabel',["SWIFT2.0", "CS", "ACO", "SWIFT2.0 v2", "11ad"]);
-    xlabel("# measurements"); ylabel("Throughput (Mbps)");
-    % title(sprintf("cs angle: %s",num2str(path_ang(1,:))));
+%     % figure; plot(10*log10([r2 r3 r5]));
+%     fig = figure('Position', [100 100 200*8 200*4]);
+%     subplot(2,2,1); plot(SNR4); title("ACO probe SNR");
+%     subplot(2,2,2); plot(SNR1); title("CS probe SNR");
+%     subplot(2,2,3); plot(aco_cbsize,[data.snr_cs_multipath ...
+%             data.snr_cs_dominantpath data.snr_aco ...
+%             data.snr_cs_multipath_v2 data.snr_11ad]); 
+%     xlabel("# measurements"); ylabel("SNR (dB)");
+%     legend(["SWIFT2.0", "CS", "ACO", "SWIFT2.0 v2", "11ad"]);
+%     subplot(2,2,4); 
+%     plot(aco_cbsize, [data.tpt_cs_multipath ...
+%             data.tpt_cs_dominantpath data.tpt_aco ...
+%             data.tpt_cs_multipath_v2 data.tpt_11ad]/1e6);
+%     % set(gca,'xticklabel',["SWIFT2.0", "CS", "ACO", "SWIFT2.0 v2", "11ad"]);
+%     xlabel("# measurements"); ylabel("Throughput (Mbps)");
+%     % title(sprintf("cs angle: %s",num2str(path_ang(1,:))));
     
     % fprintf("SWIFT2.0\tSWIFT2.0v2\tCS\tACO\t11ad\n");
     % fprintf("%.1f\t%.1f\t%.1f\t%.1f\t%.1f\n",...
