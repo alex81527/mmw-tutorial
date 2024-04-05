@@ -106,7 +106,7 @@ PA.MAG_CAL = mag_cal_vec;
 
 idx_offset = 0;
 aco_cbsize = [124]; %[8:4:124];
-savedata = 1;
+savedata = 0;
 BPU.DO_OFDM =0;
 az = [-80:1:80];
 pa_tx  = [2]; % 1-15, 1 indicates max gain
