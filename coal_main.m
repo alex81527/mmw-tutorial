@@ -2,8 +2,11 @@
 % path(path, '/home/chen7323/Downloads/cvx-a64');
 % USRP X310
 % for ((i=0;i<$(nproc --all);i++)); do sudo cpufreq-set -c $i -r -g performance; done
+path(path, './lib');
+path(path, './mat_files');
 
-load("Ga128.mat"); load("Gb128.mat");
+load("Ga128.mat"); 
+load("Gb128.mat");
 Gu = [-Gb128; -Ga128; Gb128; -Ga128];
 Gv = [-Gb128; Ga128; -Gb128; -Ga128];
 pn_1024 = [-1,1,1,-1,-1,1,1,-1,1,-1,1,1,-1,1,1,1,1,1,1,1,1,-1,-1,-1,1,1,-1,-1,-1,-1,1,1,-1,-1,1,1,1,1,1,1,-1,1,1,-1,-1,-1,1,1,-1,1,-1,-1,-1,-1,1,-1,1,1,1,-1,1,1,-1,1,1,-1,-1,-1,-1,1,-1,-1,1,-1,1,1,-1,1,1,1,-1,1,-1,-1,1,-1,-1,-1,-1,1,1,-1,-1,1,-1,-1,-1,1,-1,-1,1,-1,1,-1,1,-1,-1,1,-1,1,-1,1,-1,1,1,1,1,-1,-1,1,1,-1,1,1,-1,1,1,1,-1,-1,-1,1,-1,-1,1,-1,1,1,-1,1,1,1,-1,1,1,1,-1,-1,1,1,1,-1,-1,-1,1,-1,-1,1,-1,1,-1,-1,1,1,1,1,-1,-1,1,1,-1,-1,1,-1,1,1,-1,-1,1,-1,1,-1,1,1,1,-1,-1,-1,1,-1,-1,1,1,-1,1,-1,-1,-1,1,1,-1,1,-1,1,1,-1,-1,1,1,1,1,1,-1,1,-1,-1,1,-1,1,-1,-1,-1,1,-1,1,-1,1,1,1,1,1,1,-1,1,-1,1,-1,1,1,1,1,-1,1,1,-1,-1,-1,-1,1,1,-1,-1,1,1,1,-1,1,-1,-1,-1,1,-1,-1,-1,1,1,-1,1,1,1,-1,-1,-1,1,1,1,-1,-1,1,1,-1,-1,-1,1,-1,1,1,1,-1,1,1,-1,1,-1,1,-1,1,1,1,1,-1,1,1,1,1,1,1,-1,1,1,1,-1,1,1,-1,1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,1,-1,1,1,1,1,-1,-1,-1,1,-1,-1,1,1,1,1,-1,-1,-1,-1,-1,1,-1,-1,1,-1,-1,1,-1,1,1,-1,-1,1,-1,-1,-1,1,-1,1,-1,1,1,1,-1,1,1,1,1,1,-1,1,1,1,-1,-1,-1,1,1,-1,-1,1,1,1,-1,-1,1,1,-1,-1,-1,1,1,-1,1,1,1,-1,-1,-1,-1,1,1,-1,1,-1,-1,-1,1,1,1,1,1,-1,-1,-1,-1,1,-1,-1,1,-1,1,1,-1,-1,1,-1,-1,-1,1,1,-1,1,-1,-1,-1,-1,1,1,-1,1,-1,1,1,-1,-1,-1,-1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,1,1,-1,1,1,-1,-1,1,1,1,-1,-1,-1,1,1,-1,-1,-1,1,1,-1,1,1,1,1,-1,1,-1,-1,-1,1,-1,-1,1,1,-1,-1,1,-1,1,1,-1,1,1,1,1,1,1,1,-1,1,-1,-1,1,-1,-1,-1,-1,1,-1,1,1,-1,-1,-1,1,-1,1,-1,-1,-1,1,-1,1,-1,1,1,1,1,-1,-1,1,-1,-1,-1,-1,1,-1,1,-1,-1,-1,1,1,-1,-1,1,-1,1,-1,1,1,-1,1,1,1,1,-1,1,-1,1,1,-1,-1,-1,-1,1,-1,1,1,-1,-1,-1,1,1,1,1,1,1,-1,1,-1,1,-1,1,1,-1,-1,-1,-1,1,1,1,1,-1,1,1,1,-1,-1,-1,1,1,1,1,-1,1,-1,1,1,1,-1,1,-1,1,1,1,-1,1,-1,-1,-1,-1,1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,1,-1,1,1,1,1,1,1,1,-1,1,-1,1,-1,-1,-1,1,1,1,1,-1,1,-1,-1,-1,-1,-1,1,-1,1,-1,1,-1,-1,-1,1,1,-1,-1,1,1,-1,1,-1,-1,-1,-1,-1,1,1,-1,1,-1,1,1,1,-1,1,1,-1,-1,1,1,1,1,1,1,1,-1,1,-1,-1,-1,1,1,1,1,-1,1,-1,-1,1,-1,1,-1,-1,-1,-1,-1,1,1,1,-1,-1,-1,1,1,-1,1,-1,-1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,1,1,1,-1,-1,1,-1,1,-1,1,1,-1,-1,1,1,1,1,-1,1,-1,1,1,1,1,1,1,1,-1,-1,1,1,1,1,-1,1,1,1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,1,1,1,1,-1,-1,1,-1,1,1,-1,-1,-1,-1,1,-1,-1,1,1,-1,-1,-1,1,1,1,1,-1,1,-1,1,1,1,-1,-1,-1,1,1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,-1,-1,1,1,-1,1,-1,-1,1,1,1,1,-1,-1,1,-1,1,1,-1,1,-1,1,-1,-1,1,1,1,-1,1,-1,-1,-1,1,-1,1,1,-1,-1,-1,1,-1,1,-1,1,-1,1,-1,-1,1,-1,1,1,1,1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,-1,-1,-1,1,1,1,1,1,-1,-1,1,-1,1,-1,1,1,1,-1,-1,-1,1,-1,1,1,-1,-1,-1,1,1,1,1,1,1,-1,1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,1,-1,-1,1,1,-1,-1,-1,1,-1,1].';
@@ -54,8 +57,8 @@ cp = t(length(BPU.OFDM_PILOT_T)-BPU.OFDM_CP_LEN+1:length(BPU.OFDM_PILOT_T));
 BPU.OFDM_PREAMBLE = [BPU.ieee11ad_CE; cp; t;];
 BPU.DO_OFDM                = 0;
 % BPU.RUN_USRP_CMD           = "bash /home/chen7323/Downloads/mmw-calibration-sim/uhd/run.sh";
-BPU.TX_DATA_PATH           = "/home/chen7323/Downloads/mmw-calibration-sim/phy_samples/tx_data.dat";
-BPU.RX_DATA_PATH           = "/home/chen7323/Downloads/mmw-calibration-sim/phy_samples/usrp_samples.dat";
+BPU.TX_DATA_PATH           = "./mat_files/tx_data.mat";
+BPU.RX_DATA_PATH           = "./mat_files/usrp_samples.mat";
 BPU.USRP_ARGS              = "serial=31245AF"; %"serial=31245B5";
 BPU.USRP_EXECFILE          = "/home/chen7323/Downloads/uhd/host/build/examples/txrx_loopback_to_file";
 % BPU.PA_INITIAL_DELAY       = 0;
@@ -81,8 +84,8 @@ PA.REFANT        = 1;
 PA.PHASE_CAL     = zeros(32,1); % in rad
 PA.MAG_CAL       = ones(4,32);
 PA.CMOD_A7_DEV   = '/dev/ttyUSB1';
-PA.TX_CB_NAME    = "/home/chen7323/Downloads/mmw-calibration-sim/codebooks/test.mat";
-PA.RX_CB_NAME    = "/home/chen7323/Downloads/mmw-calibration-sim/codebooks/test.mat";
+PA.TX_CB_NAME    = "./codebooks/test.mat";
+PA.RX_CB_NAME    = "./codebooks/test.mat";
 PA.N_BEAM_WASTE  = (BPU.RX_POWER_AMP_WAIT_TIME-20.4e-6)/BPU.PN_INTERVAL_TIME; % X310 NI-RIO 200e6 Msps
 % PA.N_BEAM_WASTE  = (BPU.RX_POWER_AMP_WAIT_TIME*BPU.FS-(BPU.RX_POWER_AMP_WAIT_TIME>6e-6)*18360)/(BPU.PN_INTERVAL_TIME*BPU.FS);
 PA.TX_CB_ENTRIES = zeros(1,PA.N_BEAM_WASTE+PA.N_BEAM);%reshape(repmat([0:3],PA.N_BEAM/4,1),1,PA.N_BEAM);%[0:PA.N_BEAM-1]; % repmat([0],1,32);
@@ -106,14 +109,24 @@ PA.MAG_CAL = mag_cal_vec;
 
 idx_offset = 0;
 aco_cbsize = [124]; %[8:4:124];
-savedata = 1;
-save_folder = "./exp_data/ftp";
+savedata = 0;
 BPU.DO_OFDM =0;
 az = [-80:1:80];
 pa_tx  = [2]; % 1-15, 1 indicates max gain
 pa_rx  = [2]; assert(length(pa_tx)==length(pa_rx));
 bpu_tx = [20]; assert(length(bpu_tx)==length(pa_tx));
 bpu_rx = [5];  assert(length(bpu_rx)==length(pa_rx));
+
+load("cal32_new_taoffice.mat"); 
+PA.REFANT = 26; % 26 then 1
+PA.PHASE_CAL(PA.ACTIVE_ANT) = angle(exp(1j*calibration_vec)./exp(1j*calibration_vec(PA.REFANT)));
+PA_list = [PA];
+for ii=[100 300 500 700]
+    load(sprintf("newcal_%d.mat",ii));
+    PA2 = PA; PA2.REFANT = 26;
+    PA2.PHASE_CAL(PA.ACTIVE_ANT) = cal_refant_26;
+    PA_list = [PA_list PA2];  
+end
 
 tic
 for ii=1:length(pa_tx)
@@ -122,7 +135,12 @@ for ii=1:length(pa_tx)
     BPU.TX_RF_GAIN = bpu_tx(ii);
     BPU.RX_RF_GAIN = bpu_rx(ii);
 
-    [data] = run_exp(idx_offset+ii,az,aco_cbsize,savedata,save_folder,BPU,PA);
-    [data] = run_exp_micro_benchmark(idx_offset+ii,az,aco_cbsize,savedata,save_folder,BPU,PA);
+    % Multipath Calibration
+    save_folder = "./exp_data/coal/calibration";
+    [data] = coal_calibration(idx_offset+ii,savedata,save_folder,BPU,PA);
+
+    % test SNR perf with the new calibration vector
+    save_folder = "./exp_data/coal/exp";
+    [data] = coal_exp(idx_offset+ii,az,aco_cbsize,savedata,save_folder,BPU,PA_list);
 end
 toc
