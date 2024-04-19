@@ -18,7 +18,7 @@ abhi_idx = find(abs(data2.el)<=4 & abs(data2.az)<=45); %[1:length(new_idx)];
 data = [];
 data.az_err = az_err;
 data.az_err2 = az_err2;
-save("../d8.mat", "data");
+% save("../d8.mat", "data");
 close all;
 figure('Units','inches', 'Position', [1 1 10 5]);
 plot(100*[1:length(data.az_err)], abs(data.az_err), 'bo-'); 

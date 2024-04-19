@@ -130,8 +130,8 @@ PA_list = [PA];
 % end
 
 %%%%%%%%%%%% calibration /w selection %%%%%%%%%%%%%%%
-for ii=[100 200 300 400 500]
-    load(sprintf("./mat_files/cal32_%d_with_selection.mat", ii));
+for ii=[100 300 500 700]
+    load(sprintf("newcal_%d.mat",ii));
     PA2 = PA; PA2.REFANT = 26;
     PA2.PHASE_CAL(PA.ACTIVE_ANT) = cal_refant_26;
     PA_list = [PA_list PA2];  
