@@ -161,7 +161,7 @@ function [data] = ftp_exp(idx,az,aco_cbsize,savedata,save_folder,BPU,PA)
     
     if savedata == 1
         mkdir(save_folder);
-        exportgraphics(fig,sprintf("%s/data%d.png",save_folder, idx),'Resolution',600);
+%         exportgraphics(fig,sprintf("%s/data%d.png",save_folder, idx),'Resolution',600);
         save(sprintf("%s/data%d.mat",save_folder, idx), "data");
     end
     toc

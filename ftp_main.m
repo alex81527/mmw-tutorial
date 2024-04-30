@@ -109,7 +109,7 @@ PA.MAG_CAL = mag_cal_vec;
 
 idx_offset = 0;
 aco_cbsize = [124]; %[8:4:124];
-savedata = 0;
+savedata = 1;
 BPU.DO_OFDM =0;
 az = [-80:1:80];
 pa_tx  = [2]; % 1-15, 1 indicates max gain
@@ -125,8 +125,8 @@ for ii=1:length(pa_tx)
     BPU.RX_RF_GAIN = bpu_rx(ii);
 
     % micro-benchmark
-    save_folder = "./exp_data/ftp/mirco-benchmark";
-    [data] = ftp_micro_benchmark(idx_offset+ii,az,aco_cbsize,savedata,save_folder,BPU,PA);
+%     save_folder = "./exp_data/ftp/mirco-benchmark";
+%     [data] = ftp_micro_benchmark(idx_offset+ii,az,aco_cbsize,savedata,save_folder,BPU,PA);
     % SNR
     save_folder = "./exp_data/ftp/exp";
     [data] = ftp_exp(idx_offset+ii,az,aco_cbsize,savedata,save_folder,BPU,PA); 

@@ -109,11 +109,11 @@ PA.MAG_CAL = mag_cal_vec;
 
 idx_offset = 0;
 aco_cbsize = [124]; %[8:4:124];
-savedata = 0;
+savedata = 1;
 BPU.DO_OFDM =0;
 az = [-80:1:80];
-pa_tx  = [2]; % 1-15, 1 indicates max gain
-pa_rx  = [2]; assert(length(pa_tx)==length(pa_rx));
+pa_tx  = [1]; % 1-15, 1 indicates max gain
+pa_rx  = [1]; assert(length(pa_tx)==length(pa_rx));
 bpu_tx = [20]; assert(length(bpu_tx)==length(pa_tx));
 bpu_rx = [5];  assert(length(bpu_rx)==length(pa_rx));
 
@@ -122,20 +122,20 @@ PA.REFANT = 26; % 26 then 1
 PA.PHASE_CAL(PA.ACTIVE_ANT) = angle(exp(1j*calibration_vec)./exp(1j*calibration_vec(PA.REFANT)));
 PA_list = [PA];
 %%%%%%%%%%%% calibration /wo selection (using shuffle) %%%%%%%%%%%%%%%
-% for ii=[100 300 500 700]
-%     load(sprintf("newcal_%d.mat",ii));
-%     PA2 = PA; PA2.REFANT = 26;
-%     PA2.PHASE_CAL(PA.ACTIVE_ANT) = cal_refant_26;
-%     PA_list = [PA_list PA2];  
-% end
-
-%%%%%%%%%%%% calibration /w selection %%%%%%%%%%%%%%%
-for ii=[100 200 300 400 500]
-    load(sprintf("./mat_files/cal32_%d_with_selection.mat", ii));
+for ii=[100 300 500 700]
+    load(sprintf("newcal_%d.mat",ii));
     PA2 = PA; PA2.REFANT = 26;
     PA2.PHASE_CAL(PA.ACTIVE_ANT) = cal_refant_26;
     PA_list = [PA_list PA2];  
 end
+
+%%%%%%%%%%%% calibration /w selection %%%%%%%%%%%%%%%
+% for ii=[100 200 300 400 500]
+%     load(sprintf("./mat_files/cal32_%d_with_selection.mat", ii));
+%     PA2 = PA; PA2.REFANT = 26;
+%     PA2.PHASE_CAL(PA.ACTIVE_ANT) = cal_refant_26;
+%     PA_list = [PA_list PA2];  
+% end
 
 tic
 for ii=1:length(pa_tx)
@@ -146,7 +146,7 @@ for ii=1:length(pa_tx)
 
 %     % Calibration
 %     save_folder = "./exp_data/coal/calibration";
-%     [data] = coal_calibration(idx_offset+ii,savedata,save_folder,BPU,PA);
+%     [data] = coal_calibration(idx_offset+ii,az,aco_cbsize,savedata,save_folder,BPU,PA);
 
     % test SNR perf with the new calibration vector
     save_folder = "./exp_data/coal/exp";

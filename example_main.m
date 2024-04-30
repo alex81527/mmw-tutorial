@@ -131,9 +131,16 @@ BPU.RX_RF_GAIN = 5;   % USRP x310
 cb = "./codebooks/directional.mat";
 [rx4, H4, r4, SNR4, n4, BPU, PA, maxk_pos4, maxk_pks4] = measure_codebook(cb, BPU, PA);
 % you can save the raw samples (rx4) into a file and process it later
+data = rx4;
+save("./exp_data/data1.mat", "data");
 
 % 3. process raw data
-[H31, r31, SNR31, n31, BPU, PA, maxk_pos31, maxk_pks31]=debug_peaks(rx4, BPU, PA);
+load("./exp_data/data1.mat");
+[H31, r31, SNR31, n31, BPU, PA, maxk_pos31, maxk_pks31]=debug_peaks(data, BPU, PA);
 
 % verify they are the same
-figure; plot(SNR4); hold on; plot(SNR31, 'o-'); 
+figure; 
+plot(az, SNR4); hold on; 
+plot(az, SNR31, 'o-'); 
+xlabel("Azimuth angle (degree)");
+ylabel("SNR (dB)");
